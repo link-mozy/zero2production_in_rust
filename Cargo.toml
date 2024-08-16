@@ -1,0 +1,60 @@
+[package]
+name = "zero2prod"
+version = "0.1.0"
+authors = ["link-mozy <rnjs213@gmail.com>"]
+edition = "2021"
+
+[lib]
+# 어떤 형태의 경로든 기술할 수 있지만, 커뮤니티의 관습을 따른다.
+# `name` 필드를 사용해서 라이브러리 이름을 지정한다. 지정하지 않으면,
+# cargo는 `package.name`을 사용한다. 우리가 원하는 바다.
+path = "src/lib.rs"
+
+# 이중 대괄호를 사용한 것에 주의하자. TOML에서의 배열 표기 문법이다.
+# 프로젝트에 하나의 라이브러리는 물론, 여러 바이너리를 포함할 수도 있다.
+# 동일한 저장소에서 여러 라이브러리를 관리하고자 한다면,
+# workspace 피처를 살펴보기 바란다. 뒤에서 이에 관해 다룰 것이다.
+[[bin]]
+path = "src/main.rs"
+name = "zero2prod"
+
+[dependencies]
+secrecy = { version = "0.8", features = ["serde"] }
+config = "0.13"
+actix-web = "4"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+# 옵셔널 `derive` 피처를 사용해야, `serde`의 절차적 매크로인
+# `#[derive(Serialize)]`와 `#[derive(Deserialize)]`를 사용할 수 있다.
+# 이 피처는 기본으로 활성화되어 있지 않다. 프로젝트에 불필요한 디펜던시를
+# 사용하지 않도록 하기 위해서다.
+serde = { version = "1", features = ["derive"] }
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4.22", default-features = false, features = ["clock"] }
+tracing = { version = "0.1", features = ["log"] }
+tracing-subscriber = { version = "0.3", features = ["registry", "env-filter"] }
+tracing-bunyan-formatter = "0.3"
+tracing-log = "0.1"
+tracing-actix-web = "0.6"
+
+# 테이블과 유사힌 tomml 구문을 사용해서 긴 코드 행을 줄이자.
+[dependencies.sqlx]
+version = "0.6"
+default-features = false
+features = [
+    "runtime-tokio-rustls",
+    "macros",
+    "postgres",
+    "uuid",
+    "chrono",
+    "migrate"
+]
+
+# [...]
+# Dev dependencies are used exclusively when running tests or examples
+# They do not get included in the final application binary!
+# (Dev 디펜던시는 테스트나 예시를 실행할 때만 사용된다.)
+# (최종 애플리케이션 바이너리에는 포함되지 않는다.)
+[dev-dependencies]
+once_cell = "1"
+reqwest = "0.11"
+# [...]
