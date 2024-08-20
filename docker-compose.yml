@@ -14,4 +14,3 @@ services:
     ports:
       - "5432:5432" # This isnt needed and should be removed to not expose this port without a good reason
                     #, only here cause to test the db connection from the host machine and running tests fast
-  
