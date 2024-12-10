@@ -1,5 +1,5 @@
 use secrecy::{ExposeSecret, Secret};
-use sqlx::postgres::{PgConnectOptions, PgSslMode};
+use sqlx::postgres::PgConnectOptions;
 
 use crate::domain::SubscriberEmail;
 
