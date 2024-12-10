@@ -12,9 +12,11 @@ pub struct Settings {
 }
 
 #[derive(serde::Deserialize)]
-pub struct  EmailClientSettings {
+pub struct EmailClientSettings {
     pub base_url: String,
     pub sender_email: String,
+    // 새로운 (시크릿) 구성값
+    pub authorization_token: Secret<String>,
 }
 
 impl EmailClientSettings {
