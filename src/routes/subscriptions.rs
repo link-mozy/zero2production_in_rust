@@ -1,7 +1,6 @@
 use actix_web::{web, HttpResponse};
 use chrono::Utc;
 use sqlx::PgPool;
-use tracing::subscriber;
 use uuid::Uuid;
 // `String`과 `&str`에 `graphemes` 메서드를 제공하기 위한 확장 트레이드
 

@@ -3,3 +3,8 @@ application:
   host: 0.0.0.0
 database:
   host: 172.30.1.50
+email_client:
+  # Postmark의 API 문서에서 가져온 값
+  base_url: "https://api.postmarkapp.com"
+  # Postmark에서 권한을 받은 single sneder email을 사용한다.
+  sender_email: "rnjs213@gmail.com"
