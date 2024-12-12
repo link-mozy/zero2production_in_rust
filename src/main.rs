@@ -17,10 +17,13 @@ async fn main() -> std::io::Result<()> {
     // `configuration`를 사용해서 `EmailClinet`를 만든다.
     let sender_email = configuration.email_client.sender()
         .expect("Invalid sender email address.");
+    let timeout = configuration.email_client.timeout();
     let email_client = EmailClient::new(
         configuration.email_client.base_url, 
         sender_email,
         configuration.email_client.authorization_token,
+        // configuration으로부터 새로운 인자를 전달한다.
+        timeout
     );
 
     let address = format!(
